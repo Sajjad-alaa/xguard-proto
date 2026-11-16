@@ -1,5 +1,5 @@
 syntax = "proto3";
-package defguard.proxy.v2;
+package xguard.proxy.v2;
 
 import "common/client_types.proto";
 import "enterprise/v2/posture/posture.proto";
@@ -38,7 +38,7 @@ message AuthInfoResponse {
   string csrf_token = 2;
   string nonce = 3;
   optional string button_display_name = 4;
-  defguard.client_types.OpenIdProviderKind provider_kind = 5;
+  xguard.client_types.OpenIdProviderKind provider_kind = 5;
 }
 
 message AuthCallbackRequest {
@@ -113,33 +113,33 @@ message CoreResponse {
   uint64 id = 1;
   oneof payload {
     google.protobuf.Empty empty = 2;
-    defguard.client_types.EnrollmentStartResponse enrollment_start = 3;
-    defguard.client_types.DeviceConfigResponse device_config = 4;
+    xguard.client_types.EnrollmentStartResponse enrollment_start = 3;
+    xguard.client_types.DeviceConfigResponse device_config = 4;
     PasswordResetStartResponse password_reset_start = 5;
-    defguard.client_types.ClientMfaStartResponse client_mfa_start = 6;
-    defguard.client_types.ClientMfaFinishResponse client_mfa_finish = 7;
+    xguard.client_types.ClientMfaStartResponse client_mfa_start = 6;
+    xguard.client_types.ClientMfaFinishResponse client_mfa_finish = 7;
     CoreError core_error = 8;
-    defguard.client_types.InstanceInfoResponse instance_info = 9;
+    xguard.client_types.InstanceInfoResponse instance_info = 9;
     AuthInfoResponse auth_info = 10;
     AuthCallbackResponse auth_callback = 11;
     ClientMfaTokenValidationResponse client_mfa_token_validation = 12;
-    defguard.client_types.CodeMfaSetupStartResponse code_mfa_setup_start_response = 13;
-    defguard.client_types.CodeMfaSetupFinishResponse code_mfa_setup_finish_response = 14;
+    xguard.client_types.CodeMfaSetupStartResponse code_mfa_setup_start_response = 13;
+    xguard.client_types.CodeMfaSetupFinishResponse code_mfa_setup_finish_response = 14;
     InitialInfo initial_info = 15;
     AwaitRemoteMfaFinishResponse await_remote_mfa_finish = 16;
     HttpsCerts https_certs = 17;
     google.protobuf.Empty clear_https_certs = 18;
-    defguard.enterprise.posture.v2.DevicePostureCheckResponse device_posture_check = 19;
-    defguard.enterprise.posture.v2.DevicePostureRejection device_posture_rejected = 20;
+    xguard.enterprise.posture.v2.DevicePostureCheckResponse device_posture_check = 19;
+    xguard.enterprise.posture.v2.DevicePostureRejection device_posture_rejected = 20;
     PublicSettings public_settings = 21;
-    defguard.client_types.MfaConfigStartResponse mfa_config_start = 23;
-    defguard.client_types.MfaConfigAuthorizeResponse mfa_config_authorize = 24;
-    defguard.client_types.MfaConfigSendCodeResponse mfa_config_send_code = 25;
-    defguard.client_types.MfaConfigFido2ChallengeResponse mfa_config_fido2_challenge = 26;
-    defguard.client_types.MfaFlowStartResponse mfa_flow_start = 27;
-    defguard.client_types.MfaFlowStepStartResponse mfa_flow_step_start = 28;
-    defguard.client_types.MfaFlowStepFinishResponse mfa_flow_step_finish = 29;
-    defguard.client_types.MfaFlowRemoteResponse mfa_flow_remote = 30;
+    xguard.client_types.MfaConfigStartResponse mfa_config_start = 23;
+    xguard.client_types.MfaConfigAuthorizeResponse mfa_config_authorize = 24;
+    xguard.client_types.MfaConfigSendCodeResponse mfa_config_send_code = 25;
+    xguard.client_types.MfaConfigFido2ChallengeResponse mfa_config_fido2_challenge = 26;
+    xguard.client_types.MfaFlowStartResponse mfa_flow_start = 27;
+    xguard.client_types.MfaFlowStepStartResponse mfa_flow_step_start = 28;
+    xguard.client_types.MfaFlowStepFinishResponse mfa_flow_step_finish = 29;
+    xguard.client_types.MfaFlowRemoteResponse mfa_flow_remote = 30;
   }
 }
 
@@ -218,36 +218,36 @@ message CoreRequest {
   uint64 id = 1;
   DeviceInfo device_info = 2;
   oneof payload {
-    defguard.client_types.EnrollmentStartRequest enrollment_start = 3;
-    defguard.client_types.ActivateUserRequest activate_user = 4;
-    defguard.client_types.NewDevice new_device = 5;
-    defguard.client_types.ExistingDevice existing_device = 6;
+    xguard.client_types.EnrollmentStartRequest enrollment_start = 3;
+    xguard.client_types.ActivateUserRequest activate_user = 4;
+    xguard.client_types.NewDevice new_device = 5;
+    xguard.client_types.ExistingDevice existing_device = 6;
     PasswordResetInitializeRequest password_reset_init = 7;
     PasswordResetStartRequest password_reset_start = 8;
     PasswordResetRequest password_reset = 9;
-    defguard.client_types.ClientMfaStartRequest client_mfa_start = 10;
-    defguard.client_types.ClientMfaFinishRequest client_mfa_finish = 11;
-    defguard.client_types.InstanceInfoRequest instance_info = 12;
-    defguard.client_types.AuthInfoRequest auth_info = 13;
+    xguard.client_types.ClientMfaStartRequest client_mfa_start = 10;
+    xguard.client_types.ClientMfaFinishRequest client_mfa_finish = 11;
+    xguard.client_types.InstanceInfoRequest instance_info = 12;
+    xguard.client_types.AuthInfoRequest auth_info = 13;
     AuthCallbackRequest auth_callback = 14;
     ClientMfaOidcAuthenticateRequest client_mfa_oidc_authenticate = 15;
-    defguard.client_types.RegisterMobileAuthRequest register_mobile_auth = 16;
+    xguard.client_types.RegisterMobileAuthRequest register_mobile_auth = 16;
     ClientMfaTokenValidationRequest client_mfa_token_validation = 17;
-    defguard.client_types.CodeMfaSetupStartRequest code_mfa_setup_start = 18;
-    defguard.client_types.CodeMfaSetupFinishRequest code_mfa_setup_finish = 19;
+    xguard.client_types.CodeMfaSetupStartRequest code_mfa_setup_start = 18;
+    xguard.client_types.CodeMfaSetupFinishRequest code_mfa_setup_finish = 19;
     AwaitRemoteMfaFinishRequest await_remote_mfa_finish = 20;
     AcmeCertificate acme_certificate = 21;
-    defguard.enterprise.posture.v2.DevicePostureCheckRequest device_posture_check = 22;
-    defguard.client_types.MfaConfigStartRequest mfa_config_start = 24;
-    defguard.client_types.MfaConfigAuthorizeRequest mfa_config_authorize = 25;
-    defguard.client_types.MfaConfigSendCodeRequest mfa_config_send_code = 26;
-    defguard.client_types.MfaConfigEndRequest mfa_config_end = 27;
-    defguard.client_types.MfaConfigFido2ChallengeRequest mfa_config_fido2_challenge = 28;
-    defguard.client_types.MfaFlowStartRequest mfa_flow_start = 29;
-    defguard.client_types.MfaFlowStepStartRequest mfa_flow_step_start = 30;
-    defguard.client_types.MfaFlowStepFinishRequest mfa_flow_step_finish = 31;
-    defguard.client_types.MfaFlowRemoteRequest mfa_flow_remote = 32;
-    defguard.client_types.MfaFlowApproveRequest mfa_flow_approve = 33;
+    xguard.enterprise.posture.v2.DevicePostureCheckRequest device_posture_check = 22;
+    xguard.client_types.MfaConfigStartRequest mfa_config_start = 24;
+    xguard.client_types.MfaConfigAuthorizeRequest mfa_config_authorize = 25;
+    xguard.client_types.MfaConfigSendCodeRequest mfa_config_send_code = 26;
+    xguard.client_types.MfaConfigEndRequest mfa_config_end = 27;
+    xguard.client_types.MfaConfigFido2ChallengeRequest mfa_config_fido2_challenge = 28;
+    xguard.client_types.MfaFlowStartRequest mfa_flow_start = 29;
+    xguard.client_types.MfaFlowStepStartRequest mfa_flow_step_start = 30;
+    xguard.client_types.MfaFlowStepFinishRequest mfa_flow_step_finish = 31;
+    xguard.client_types.MfaFlowRemoteRequest mfa_flow_remote = 32;
+    xguard.client_types.MfaFlowApproveRequest mfa_flow_approve = 33;
   }
 }
 
@@ -273,7 +273,7 @@ service Proxy {
 // Service used during initial Proxy setup to configure the TLS certificate
 // for gRPC communication.
 service ProxySetup {
-  rpc Start(google.protobuf.Empty) returns (stream defguard.common.v2.LogEntry);
-  rpc GetCsr(defguard.common.v2.CertificateInfo) returns (defguard.common.v2.DerPayload);
-  rpc SendCert(defguard.common.v2.CertBundle) returns (google.protobuf.Empty);
+  rpc Start(google.protobuf.Empty) returns (stream xguard.common.v2.LogEntry);
+  rpc GetCsr(xguard.common.v2.CertificateInfo) returns (xguard.common.v2.DerPayload);
+  rpc SendCert(xguard.common.v2.CertBundle) returns (google.protobuf.Empty);
 }

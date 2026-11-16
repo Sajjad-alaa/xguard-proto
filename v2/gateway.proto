@@ -1,5 +1,5 @@
 syntax = "proto3";
-package defguard.gateway.v2;
+package xguard.gateway.v2;
 
 import "enterprise/v2/firewall/firewall.proto";
 import "google/protobuf/empty.proto";
@@ -15,7 +15,7 @@ message Configuration {
   uint32 port = 3;
   repeated Peer peers = 4;
   repeated string addresses = 5;
-  optional defguard.enterprise.firewall.v2.FirewallConfig firewall_config = 6;
+  optional xguard.enterprise.firewall.v2.FirewallConfig firewall_config = 6;
   uint32 mtu = 7;
   uint32 fwmark = 8;
 }
@@ -39,7 +39,7 @@ message Update {
   oneof update {
     Peer peer = 2;
     Configuration network = 3;
-    defguard.enterprise.firewall.v2.FirewallConfig firewall_config = 4;
+    xguard.enterprise.firewall.v2.FirewallConfig firewall_config = 4;
     google.protobuf.Empty disable_firewall = 5;
   }
 }
@@ -96,7 +96,7 @@ service Gateway {
 // Service used for initial Gateway setup, for configuring TLS certificate
 // on Gateway for gRPC communication.
 service GatewaySetup {
-  rpc Start(google.protobuf.Empty) returns (stream defguard.common.v2.LogEntry);
-  rpc GetCsr(defguard.common.v2.CertificateInfo) returns (defguard.common.v2.DerPayload);
-  rpc SendCert(defguard.common.v2.CertBundle) returns (google.protobuf.Empty);
+  rpc Start(google.protobuf.Empty) returns (stream xguard.common.v2.LogEntry);
+  rpc GetCsr(xguard.common.v2.CertificateInfo) returns (xguard.common.v2.DerPayload);
+  rpc SendCert(xguard.common.v2.CertBundle) returns (google.protobuf.Empty);
 }

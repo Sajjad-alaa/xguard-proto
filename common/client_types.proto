@@ -1,10 +1,10 @@
 syntax = "proto3";
-package defguard.client_types;
+package xguard.client_types;
 
 import "enterprise/v2/posture/posture.proto";
 
 /*
- * Shared message and enum definitions used by Defguard desktop clients (desktop app and CLI).
+ * Shared message and enum definitions used by XGuard desktop clients (desktop app and CLI).
  *
  * This module exists to decouple the desktop client from any specific proxy protocol version.
  * The client only needs a stable, version-independent set of types for:
@@ -338,7 +338,7 @@ message MfaStepResult {
 message MfaFlowStartRequest {
   int64 location_id = 1;
   string pubkey = 2;
-  optional defguard.enterprise.posture.v2.DevicePostureData posture_data = 3;
+  optional xguard.enterprise.posture.v2.DevicePostureData posture_data = 3;
   repeated MfaMethod selected_methods = 4;
 }
 
@@ -429,7 +429,7 @@ message ClientMfaStartRequest {
   // MfaMethod.TOTP is 0, so an omitted value and explicit TOTP are equivalent.
   MfaMethod method = 3;
   // [2.1] Required when the location has posture policies assigned.
-  optional defguard.enterprise.posture.v2.DevicePostureData posture_data = 4;
+  optional xguard.enterprise.posture.v2.DevicePostureData posture_data = 4;
 }
 
 // LEGACY/FROZEN: preserve this message's wire contract for deployed clients.

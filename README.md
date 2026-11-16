@@ -1,12 +1,12 @@
  <p align="center">
-    <img src="docs/header.png" alt="defguard">
+    <img src="docs/header.png" alt="xguard">
  </p>
 
-[Protocol buffers](https://github.com/protocolbuffers/protobuf) service definitions used for internal [gRPC](https://grpc.io/) communication between [defguard](https://github.com/DefGuard/defguard) services.
+[Protocol buffers](https://github.com/protocolbuffers/protobuf) service definitions used for internal [gRPC](https://grpc.io/) communication between [xguard](https://github.com/Sajjad-alaa/xguard-core) services.
 
 ## Documentation
 
-See the [documentation](https://defguard.gitbook.io) for more information about the system.
+See the [documentation](https://docs.xguard.local) for more information about the system.
 
 ## Buf CLI
 
@@ -18,11 +18,11 @@ This repository uses [Buf](https://buf.build/) to validate the protobuf module l
 
 ## Community and Support
 
-Reach out to our community via [GitHub Discussions](https://github.com/DefGuard/defguard/discussions/new/choose)
+Reach out to our community via [GitHub Discussions](https://github.com/Sajjad-alaa/xguard-core/discussions/new/choose)
 
 ## Contribution
 
-Please review the [Contributing guide](https://defguard.gitbook.io/defguard/for-developers/contributing) for information on how to get started contributing to the project. You might also find our [environment setup guide](https://defguard.gitbook.io/defguard/for-developers/dev-env-setup) handy.
+Please review the [Contributing guide](https://docs.xguard.local/xguard/for-developers/contributing) for information on how to get started contributing to the project. You might also find our [environment setup guide](https://docs.xguard.local/xguard/for-developers/dev-env-setup) handy.
 
 # Legal
 

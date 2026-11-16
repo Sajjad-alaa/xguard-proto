@@ -1,5 +1,5 @@
 syntax = "proto3";
-package defguard.client.v1;
+package xguard.client.v1;
 
 import "enterprise/v2/posture/posture.proto";
 import "google/protobuf/empty.proto";
@@ -98,6 +98,6 @@ service DesktopDaemonService {
   rpc ReadInterfaceData(ReadInterfaceDataRequest) returns (stream InterfaceData);
   rpc SaveServiceLocations(SaveServiceLocationsRequest) returns (google.protobuf.Empty);
   rpc DeleteServiceLocations(DeleteServiceLocationsRequest) returns (google.protobuf.Empty);
-  rpc GetPostureData(google.protobuf.Empty) returns (defguard.enterprise.posture.v2.DevicePostureData);
+  rpc GetPostureData(google.protobuf.Empty) returns (xguard.enterprise.posture.v2.DevicePostureData);
   rpc ListInterfaces(google.protobuf.Empty) returns (ListInterfacesResponse);
 }

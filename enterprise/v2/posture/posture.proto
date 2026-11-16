@@ -1,5 +1,5 @@
 syntax = "proto3";
-package defguard.enterprise.posture.v2;
+package xguard.enterprise.posture.v2;
 
 enum UnavailableReason {
   UNAVAILABLE_REASON_UNSPECIFIED = 0;
@@ -35,7 +35,7 @@ message Int32Check {
 // Raw posture signals gathered by the client.
 message DevicePostureData {
   // Full semver string including any pre-release suffix, e.g. "1.6.0-beta1".
-  string defguard_client_version = 1;
+  string xguard_client_version = 1;
   // Normalized OS type, e.g. "Windows", "macOS", "Linux", "iOS", "Android".
   string os_type = 2;
   // Detailed OS name, e.g. "Windows", "Darwin", "Ubuntu".

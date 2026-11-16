@@ -1,5 +1,5 @@
 syntax = "proto3";
-package defguard.common.v2;
+package xguard.common.v2;
 
 /*
  * Raw DER-encoded certificate or key payload.
