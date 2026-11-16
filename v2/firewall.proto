@@ -1,0 +1,84 @@
+syntax = "proto3";
+package xguard.gateway.v2;
+
+/*
+ * XGuard firewall policy for one location, compiled by Core and enforced by
+ * Gateway on traffic arriving from the WireGuard interface.
+ *
+ * Every value is typed (address bytes, numeric ports and protocols) so Gateway
+ * never has to parse or paste free-form text into its packet filter.
+ */
+message FirewallPolicy {
+  // Content hash of the policy, computed by Core. Two policies with the same
+  // revision are identical, so Gateway may skip re-applying one.
+  string revision = 1;
+  // Action for VPN traffic no rule matches.
+  FirewallAction default_action = 2;
+  // Address sets referenced by rules and SNAT bindings.
+  repeated AddressSet address_sets = 3;
+  // Evaluated in order; the first matching rule decides.
+  repeated FirewallRule rules = 4;
+  // Source NAT applied to traffic leaving the gateway.
+  repeated SnatBinding snat_bindings = 5;
+}
+
+enum FirewallAction {
+  FIREWALL_ACTION_UNSPECIFIED = 0;
+  // Let the packet through.
+  FIREWALL_ACTION_ACCEPT = 1;
+  // Silently discard the packet.
+  FIREWALL_ACTION_DROP = 2;
+  // Discard the packet and tell the sender (ICMP unreachable / TCP reset).
+  FIREWALL_ACTION_REJECT = 3;
+}
+
+/*
+ * A set of IPv4 and/or IPv6 addresses, as inclusive ranges.
+ */
+message AddressSet {
+  // Unique within the policy.
+  uint32 id = 1;
+  repeated IpRange ranges = 2;
+}
+
+/*
+ * Inclusive address range. `start` and `end` are 4 (IPv4) or 16 (IPv6) bytes
+ * in network order, of the same length, with start <= end. A single address
+ * has start == end.
+ */
+message IpRange {
+  bytes start = 1;
+  bytes end = 2;
+}
+
+/*
+ * Inclusive port range, 1-65535. A single port has start == end.
+ */
+message PortRange {
+  uint32 start = 1;
+  uint32 end = 2;
+}
+
+message FirewallRule {
+  // Core rule ID, used in logs and counters.
+  uint64 id = 1;
+  FirewallAction action = 2;
+  // Address set the packet's source must be in; unset matches any source.
+  optional uint32 source_set = 3;
+  // Address set the packet's destination must be in; unset matches any.
+  optional uint32 destination_set = 4;
+  // IANA protocol numbers (6 = TCP, 17 = UDP, ...); empty matches any.
+  // Rules with ports only use TCP (6), UDP (17) and SCTP (132).
+  repeated uint32 protocols = 5;
+  // Destination ports; empty matches any port.
+  repeated PortRange destination_ports = 6;
+}
+
+/*
+ * Rewrites the source address of traffic from `source_set` to `to_address`.
+ */
+message SnatBinding {
+  uint32 source_set = 1;
+  // 4 or 16 bytes, network order.
+  bytes to_address = 2;
+}

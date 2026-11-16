@@ -4,6 +4,7 @@ package xguard.gateway.v2;
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "v2/common.proto";
+import "v2/firewall.proto";
 
 /*
  * Networking and VPN configuration send from Core to Gateway.
@@ -19,6 +20,8 @@ message Configuration {
   repeated string addresses = 5;
   uint32 mtu = 7;
   uint32 fwmark = 8;
+  // XGuard firewall for this location; unset means the firewall is off.
+  optional FirewallPolicy firewall = 9;
 }
 
 enum UpdateType {
@@ -43,7 +46,10 @@ message Update {
   oneof update {
     Peer peer = 2;
     Configuration network = 3;
+    // Turns the firewall off; NAT stays.
     google.protobuf.Empty disable_firewall = 5;
+    // Replaces the firewall policy (and turns the firewall on).
+    FirewallPolicy firewall = 6;
   }
 }
 
