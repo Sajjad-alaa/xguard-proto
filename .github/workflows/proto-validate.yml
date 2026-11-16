@@ -42,8 +42,7 @@ jobs:
         run: |
           buf breaking \
             --against ".git#ref=${{ github.event.pull_request.base.sha }}" \
-            --path v1 \
-            --path enterprise/v1
+            --path v1
 
       - name: Check breaking changes for v2
         # Remove when v2 compatibility is enforced.
@@ -51,5 +50,4 @@ jobs:
         run: |
           buf breaking \
             --against ".git#ref=${{ github.event.pull_request.base.sha }}" \
-            --path v2 \
-            --path enterprise/v2
+            --path v2

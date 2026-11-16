@@ -2,7 +2,6 @@ syntax = "proto3";
 package xguard.proxy.v2;
 
 import "common/client_types.proto";
-import "enterprise/v2/posture/posture.proto";
 import "google/protobuf/empty.proto";
 import "v2/common.proto";
 
@@ -110,6 +109,9 @@ enum CoreErrorCode {
  * in response to CoreRequest.
  */
 message CoreResponse {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 19, 20;
+  reserved "device_posture_check", "device_posture_rejected";
   uint64 id = 1;
   oneof payload {
     google.protobuf.Empty empty = 2;
@@ -129,8 +131,6 @@ message CoreResponse {
     AwaitRemoteMfaFinishResponse await_remote_mfa_finish = 16;
     HttpsCerts https_certs = 17;
     google.protobuf.Empty clear_https_certs = 18;
-    xguard.enterprise.posture.v2.DevicePostureCheckResponse device_posture_check = 19;
-    xguard.enterprise.posture.v2.DevicePostureRejection device_posture_rejected = 20;
     PublicSettings public_settings = 21;
     xguard.client_types.MfaConfigStartResponse mfa_config_start = 23;
     xguard.client_types.MfaConfigAuthorizeResponse mfa_config_authorize = 24;
@@ -215,6 +215,9 @@ message AcmeIssueEvent {
  * CoreRequest represents messages sent from proxy to core.
  */
 message CoreRequest {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 22;
+  reserved "device_posture_check";
   uint64 id = 1;
   DeviceInfo device_info = 2;
   oneof payload {
@@ -237,7 +240,6 @@ message CoreRequest {
     xguard.client_types.CodeMfaSetupFinishRequest code_mfa_setup_finish = 19;
     AwaitRemoteMfaFinishRequest await_remote_mfa_finish = 20;
     AcmeCertificate acme_certificate = 21;
-    xguard.enterprise.posture.v2.DevicePostureCheckRequest device_posture_check = 22;
     xguard.client_types.MfaConfigStartRequest mfa_config_start = 24;
     xguard.client_types.MfaConfigAuthorizeRequest mfa_config_authorize = 25;
     xguard.client_types.MfaConfigSendCodeRequest mfa_config_send_code = 26;

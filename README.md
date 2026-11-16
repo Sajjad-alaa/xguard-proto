@@ -10,7 +10,7 @@ See the [documentation](https://docs.xguard.local) for more information about th
 
 ## Buf CLI
 
-This repository uses [Buf](https://buf.build/) to validate the protobuf module layout and schema quality across the versioned snapshots in `v1/`, `v2/`, `enterprise/v1/`, and `enterprise/v2/`. Imports are repo-root-relative.
+This repository uses [Buf](https://buf.build/) to validate the protobuf module layout and schema quality across the versioned snapshots in `v1/` and `v2/`. Imports are repo-root-relative.
 
 - `buf build` — verify that the module and imports resolve correctly.
 - `buf lint` — run the repository's Buf lint rules.

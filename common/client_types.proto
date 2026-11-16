@@ -1,7 +1,6 @@
 syntax = "proto3";
 package xguard.client_types;
 
-import "enterprise/v2/posture/posture.proto";
 
 /*
  * Shared message and enum definitions used by XGuard desktop clients (desktop app and CLI).
@@ -336,9 +335,11 @@ message MfaStepResult {
 }
 
 message MfaFlowStartRequest {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 3;
+  reserved "posture_data";
   int64 location_id = 1;
   string pubkey = 2;
-  optional xguard.enterprise.posture.v2.DevicePostureData posture_data = 3;
   repeated MfaMethod selected_methods = 4;
 }
 
@@ -424,12 +425,13 @@ message MfaFlowApproveRequest {
 
 // LEGACY/FROZEN: preserve this message's wire contract for deployed clients.
 message ClientMfaStartRequest {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 4;
+  reserved "posture_data";
   int64 location_id = 1;
   string pubkey = 2;
   // MfaMethod.TOTP is 0, so an omitted value and explicit TOTP are equivalent.
   MfaMethod method = 3;
-  // [2.1] Required when the location has posture policies assigned.
-  optional xguard.enterprise.posture.v2.DevicePostureData posture_data = 4;
 }
 
 // LEGACY/FROZEN: preserve this message's wire contract for deployed clients.

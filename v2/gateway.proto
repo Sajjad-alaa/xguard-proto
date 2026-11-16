@@ -1,7 +1,6 @@
 syntax = "proto3";
 package xguard.gateway.v2;
 
-import "enterprise/v2/firewall/firewall.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "v2/common.proto";
@@ -10,12 +9,14 @@ import "v2/common.proto";
  * Networking and VPN configuration send from Core to Gateway.
  */
 message Configuration {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 6;
+  reserved "firewall_config";
   string name = 1;
   string private_key = 2;
   uint32 port = 3;
   repeated Peer peers = 4;
   repeated string addresses = 5;
-  optional xguard.enterprise.firewall.v2.FirewallConfig firewall_config = 6;
   uint32 mtu = 7;
   uint32 fwmark = 8;
 }
@@ -35,11 +36,13 @@ message Peer {
 }
 
 message Update {
+  // Removed with Defguard enterprise code (XGuard is AGPL-only).
+  reserved 4;
+  reserved "firewall_config";
   UpdateType update_type = 1;
   oneof update {
     Peer peer = 2;
     Configuration network = 3;
-    xguard.enterprise.firewall.v2.FirewallConfig firewall_config = 4;
     google.protobuf.Empty disable_firewall = 5;
   }
 }
