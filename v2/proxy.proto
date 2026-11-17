@@ -102,6 +102,9 @@ enum CoreErrorCode {
   CORE_ERROR_CODE_MFA_SESSION_EXPIRED = 3;
   // Core could not process the request because SMTP is not configured.
   CORE_ERROR_CODE_SMTP_NOT_CONFIGURED = 4;
+  // The device does not meet the location's posture policies. The message lists the
+  // failed checks.
+  CORE_ERROR_CODE_POSTURE_REJECTED = 5;
 }
 
 /*
@@ -140,6 +143,7 @@ message CoreResponse {
     xguard.client_types.MfaFlowStepStartResponse mfa_flow_step_start = 28;
     xguard.client_types.MfaFlowStepFinishResponse mfa_flow_step_finish = 29;
     xguard.client_types.MfaFlowRemoteResponse mfa_flow_remote = 30;
+    xguard.client_types.PostureConnectResponse posture_connect = 31;
   }
 }
 
@@ -250,6 +254,7 @@ message CoreRequest {
     xguard.client_types.MfaFlowStepFinishRequest mfa_flow_step_finish = 31;
     xguard.client_types.MfaFlowRemoteRequest mfa_flow_remote = 32;
     xguard.client_types.MfaFlowApproveRequest mfa_flow_approve = 33;
+    xguard.client_types.PostureConnectRequest posture_connect = 34;
   }
 }
 
