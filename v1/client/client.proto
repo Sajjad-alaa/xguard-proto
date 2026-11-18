@@ -59,6 +59,8 @@ message ServiceLocation {
   ServiceLocationMode mode = 8;
   int64 core_location_id = 9;
   bool posture_check_required = 10;
+  // [xguard] MTU for the interface; absent lets the system choose.
+  optional uint32 mtu = 11;
 }
 
 message SaveServiceLocationsRequest {

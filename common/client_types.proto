@@ -196,11 +196,24 @@ message DeviceConfigResponse {
 // Configuration polling
 
 message InstanceInfoRequest {
+  // The device's polling token.
   string token = 1;
+  // [xguard] Revision of the configuration the client applied last (from
+  // InstanceInfoResponse.config_revision). When it still matches, Core answers with
+  // not_modified = true and no device_config.
+  optional string config_revision = 2;
 }
 
 message InstanceInfoResponse {
+  // Absent when not_modified is true.
   DeviceConfigResponse device_config = 1;
+  // [xguard] Opaque revision of the configuration in device_config (or of the unchanged
+  // configuration when not_modified is true). Clients send it back as-is.
+  optional string config_revision = 2;
+  // [xguard] The client's configuration is unchanged since config_revision.
+  optional bool not_modified = 3;
+  // [xguard] Suggested seconds until the next poll. Clients clamp it to their own limits.
+  optional uint32 poll_interval_secs = 4;
 }
 
 // Platform info sent as a header with every request to the proxy
