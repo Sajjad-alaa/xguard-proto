@@ -237,6 +237,11 @@ enum MfaMethod {
   BIOMETRIC = 3;
   MOBILE_APPROVE = 4;
   FIDO2 = 5;
+  // [XGuard] A one-time code (or a push approval) checked by the organisation's RADIUS server
+  // (privacyIDEA, FreeRADIUS with an OTP module, ...). Nothing is set up in XGuard: the method
+  // is available when RADIUS MFA is enabled for the user. Older peers decode it as an unknown
+  // value, so a step that offers only RADIUS needs a client that knows it.
+  RADIUS = 6;
 }
 
 // [2.2] Multi-step MFA
@@ -284,6 +289,20 @@ message MfaStepStarted {
     MfaSignatureChallenge signature = 2;
     MfaFido2Challenge fido2 = 3;
   }
+}
+
+// [XGuard] The RADIUS server answered a RADIUS step with Access-Challenge: it wants another
+// answer before it decides (a code sent by SMS or email after the PIN, a second token in a
+// multi-challenge, or an approval on the user's phone). The RADIUS State stays in Core, bound
+// to the attempt; the client only shows the message and answers with the same attempt ID.
+message MfaRadiusChallenge {
+  // The server's Reply-Message for the user (control characters removed). May be empty.
+  string message = 1;
+  // The challenge can be approved on another device (push). The client finishes the step with
+  // no submission every `poll_interval_secs` until the result is no longer AwaitingExternal,
+  // and may still offer a code field. A code answer is always accepted.
+  bool push = 2;
+  uint32 poll_interval_secs = 3;
 }
 
 message MfaFlowStartAccepted {
@@ -344,6 +363,9 @@ message MfaStepResult {
     MfaAdvanced advanced = 1;
     MfaCompleted completed = 2;
     MfaAwaitingExternal awaiting_external = 3;
+    // [XGuard] RADIUS only: the server sent Access-Challenge. The step stays current, with the
+    // same attempt ID; answer it with MfaFlowStepFinish.
+    MfaRadiusChallenge radius_challenge = 4;
   }
 }
 
@@ -392,7 +414,9 @@ message MfaFido2Assertion {
 }
 
 // The session's persisted method selects the verifier. An unset submission is
-// valid only for OIDC and MobileApprove polling.
+// valid only for OIDC and MobileApprove polling, and for RADIUS polling while a push
+// challenge (MfaRadiusChallenge.push) is pending. A RADIUS code may be empty: that sends an
+// empty password, which RADIUS servers commonly use to trigger an SMS, email or push challenge.
 message MfaFlowStepFinishRequest {
   string token = 1;
   string step_attempt_id = 2;
