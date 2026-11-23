@@ -175,6 +175,28 @@ message PublicSettings {
   optional string public_url = 3;
   // Directory users may start enrollment with their directory username and password.
   bool directory_enrollment = 4;
+  // Where the client download pages link to. Absent when Core predates the setting: the Edge
+  // then uses its built-in defaults (the XGuard GitHub releases).
+  ClientDownloads client_downloads = 5;
+}
+
+/*
+ * Client download links, set by an admin in Core ("Client downloads").
+ * Installers are `<base_url>/<asset name>` with fixed, version-less asset names
+ * (`xguard-client_amd64.deb`, `xguard-client_x64.msi`, ...).
+ */
+message ClientDownloads {
+  // Base URL the installer asset names are appended to, without a trailing slash.
+  string base_url = 1;
+  // Page listing every release (shown as "all downloads").
+  string releases_url = 2;
+  // Android APK or store page. Unset hides the Android link.
+  optional string android_url = 3;
+  // iOS App Store page. Unset hides the iOS link.
+  optional string ios_url = 4;
+  // A macOS installer is published under the base URL. When false the macOS button opens the
+  // releases page instead (macOS builds need an Apple Developer account to be signed).
+  bool macos_installer = 5;
 }
 
 /*
