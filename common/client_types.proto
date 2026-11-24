@@ -604,8 +604,8 @@ message AuthInfoRequest {
 /*
  * XGuard device posture.
  *
- * The desktop client collects these facts about its own device and sends them when it
- * connects to a location that has posture policies. They are an attestation made by the
+ * The desktop client and the mobile app collect these facts about their own device and
+ * send them when they connect to a location that has posture policies. They are an attestation made by the
  * client, not proof: a modified client can report anything. Core treats a missing fact
  * as non-compliant for every rule that needs it.
  */
@@ -632,19 +632,30 @@ message DevicePostureFacts {
   // XGuard client version (semver, may carry a pre-release suffix).
   string client_version = 5;
   // Unset fields mean "could not be determined".
+  // Disk encryption: BitLocker, FileVault, LUKS root (desktop); Data Protection with a
+  // passcode (iOS); file-based encryption with a lock screen credential (Android).
   optional bool disk_encrypted = 6;
   optional bool firewall_enabled = 7;
+  // Screen lock (desktop), passcode set (iOS), secure lock screen (Android).
   optional bool screen_lock_enabled = 8;
+  // An antivirus or EDR product is installed and running (Windows, macOS, Linux).
   optional bool antivirus_enabled = 9;
+  // Joined to a directory domain: Active Directory (Windows), AD or Open Directory/LDAP
+  // (macOS), realmd/SSSD/winbind (Linux).
   optional bool domain_joined = 10;
   // System Integrity Protection (macOS) or verified boot (Android).
   optional bool device_integrity = 11;
-  // Days since the last installed OS security update (Windows).
+  // Days since the last installed OS security update (Windows, macOS, Linux).
   optional uint32 security_update_age_days = 12;
   // Security patch level date, YYYY-MM-DD (Android).
   optional string security_patch_date = 13;
   // When the facts were collected, Unix seconds (client clock).
   int64 collected_at = 14;
+  // Which set of facts this client knows how to report. 0 (unset): older clients, which do
+  // not report antivirus, domain membership or update age on macOS and Linux. 2: every fact
+  // above on every platform that can detect it. Core uses it to tell "this client is too old
+  // to report the fact" from "the client could not determine it".
+  uint32 facts_revision = 15;
 }
 
 // Posture-only connection (location without MFA but with posture policies).
